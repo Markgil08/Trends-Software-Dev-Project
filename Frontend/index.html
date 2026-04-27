@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group 1: Trends in Software Development</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark: #0f172a;
+            --accent-blue: #3b82f6;
+            --sidebar-width: 280px;
+        }
+        body { 
+            background-color: #f8fafc; 
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            margin: 0;
+            display: flex;
+        }
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--primary-dark);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            padding: 25px;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+        .main-content {
+            margin-left: var(--sidebar-width);
+            padding: 40px;
+            width: calc(100% - var(--sidebar-width));
+            min-height: 100vh;
+        }
+        .nav-link {
+            color: #94a3b8;
+            margin-bottom: 5px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-radius: 8px;
+            padding: 10px 15px;
+            text-decoration: none;
+            display: block;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: white;
+            background: rgba(255,255,255,0.1);
+        }
+        .nav-link.active {
+            border-left: 4px solid var(--accent-blue);
+            background: rgba(59, 130, 246, 0.1);
+        }
+        .report-section {
+            background: white;
+            border-radius: 12px;
+            padding: 35px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            border: 1px solid #e2e8f0;
+        }
+        .section-header {
+            border-bottom: 2px solid #f1f5f9;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+        }
+        .code-block {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            margin: 15px 0;
+            white-space: pre-wrap;
+        }
+        .step-box {
+            border-left: 3px solid var(--accent-blue);
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+        .badge-method { width: 70px; text-align: center; }
+        .d-none { display: none !important; }
+        h2 { font-weight: 800; color: #1e293b; }
+        h5 { color: var(--accent-blue); font-weight: 700; margin-top: 20px; }
+        .tech-tag { background: #f1f5f9; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; }
+        .diagram-container {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        .diagram-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+        .diagram-title {
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            color: #64748b;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .api-status-dot {
+            height: 10px;
+            width: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <div class="mb-5">
+        <h5 class="text-white">GROUP 1</h5>
+        <small class="text-primary">Trends in Software Dev</small>
+    </div>
+    
+    <nav class="nav flex-column">
+        <div class="text-uppercase text-primary small fw-bold mb-2 px-3">I. MVC ARCHITECTURE</div>
+        <a class="nav-link active" onclick="showView('mvc-overview')">Overview & Structure</a>
+        <a class="nav-link" onclick="showView('mvc-flow')">Flow & Real Application</a>
+        <a class="nav-link" onclick="showView('mvc-demo')">System Diagrams</a>
+        
+        <div class="text-uppercase text-primary small fw-bold mt-4 mb-2 px-3">II. API DEVELOPMENT</div>
+        <a class="nav-link" onclick="showView('api-intro')">Intro & Planning</a>
+        <a class="nav-link" onclick="showView('api-design')">Endpoints & JSON</a>
+        <a class="nav-link" onclick="showView('api-dev')">Workflow & Demo</a>
+
+        <div class="text-uppercase text-primary small fw-bold mt-4 mb-2 px-3">III. TOOLS</div>
+        <a class="nav-link" onclick="showView('tools')">IDE & Libraries</a>
+        
+        <div class="mt-4 px-2">
+            <a class="nav-link text-warning fw-bold text-center" onclick="showView('live-demo')" style="background: rgba(255,193,7,0.1); border: 1px solid rgba(255,193,7,0.2);">
+                🚀 LIVE DEMO
+            </a>
+        </div>
+    </nav>
+</div>
+
+<div class="main-content">
+
+    <!-- MVC OVERVIEW & STRUCTURE -->
+    <div id="view-mvc-overview" class="view-content">
+        <div class="report-section">
+            <div class="section-header">
+                <h2>MVC Architecture Overview</h2>
+            </div>
+            <p>MVC stands for <strong>Model–View–Controller</strong>. It is a software design pattern used in web and application development to organize code into three separate parts.</p>
+            
+            <h5>Main Purposes</h5>
+            <ul>
+                <li>Separate concerns (logic, UI, and control)</li>
+                <li>Make systems easier to manage, update, and scale</li>
+                <li>Improve teamwork in development</li>
+            </ul>
+
+            <h2 class="mt-5 mb-4">Structure of MVC</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="p-3 border rounded h-100">
+                        <h6 class="fw-bold text-primary">Model (The Data Authority)</h6>
+                        <p class="small">The Model is responsible for managing data, handling business logic, and communicating with the database.</p>
+                        <h6 class="small fw-bold mt-2">Key Functions:</h6>
+                        <ul class="small">
+                            <li>Stores and retrieves data</li>
+                            <li>Processes data (e.g., calculations, rules)</li>
+                            <li>Updates the database when needed</li>
+                        </ul>
+                        <div class="mt-2 small italic text-primary"><strong>Example:</strong> Handling student records (name, ID, grades) in a student system.</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-3 border rounded h-100">
+                        <h6 class="fw-bold text-success">View (The User Interface)</h6>
+                        <p class="small">The View is the User Interface (UI)—what the user sees on the screen.</p>
+                        <h6 class="small fw-bold mt-2">Key Functions:</h6>
+                        <ul class="small">
+                            <li>Displays data from the Model</li>
+                            <li>Sends user input to the Controller</li>
+                            <li>Does not handle logic or data processing</li>
+                        </ul>
+                        <div class="mt-2 small italic text-primary"><strong>Example:</strong> Webpages showing student information, forms, and dashboards.</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-3 border rounded h-100">
+                        <h6 class="fw-bold text-warning">Controller (The Middleman)</h6>
+                        <p class="small">The Controller acts as the middleman between the Model and the View.</p>
+                        <h6 class="small fw-bold mt-2">Key Functions:</h6>
+                        <ul class="small">
+                            <li>Receives user input from the View</li>
+                            <li>Processes requests</li>
+                            <li>Calls the Model to update/retrieve data</li>
+                            <li>Sends updated data back to the View</li>
+                        </ul>
+                        <div class="mt-2 small italic text-primary"><strong>Example:</strong> Getting input, sending to Model, and updating View when a user clicks "Submit".</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MVC FLOW & REAL APPLICATION -->
+    <div id="view-mvc-flow" class="view-content d-none">
+        <div class="report-section">
+            <div class="section-header">
+                <h2>Flow of MVC in a Web Application</h2>
+            </div>
+            <p class="text-primary small">Step-by-step interaction:</p>
+            <div class="step-box"><strong>User Interaction (Client Side):</strong> User performs an action on the interface (e.g., clicking a button or submitting a form).</div>
+            <div class="step-box"><strong>Controller Receives Request:</strong> Handles user input and interprets what action to take.</div>
+            <div class="step-box"><strong>Controller Communicates with Model:</strong> Sends request to process data (e.g., check login credentials).</div>
+            <div class="step-box"><strong>Model Processes Data:</strong> Interacts with database, retrieves, updates, or validates data.</div>
+            <div class="step-box"><strong>Model Returns Data to Controller:</strong> Sends processed result (e.g., valid or invalid login) back.</div>
+            <div class="step-box"><strong>Controller Sends Data to View:</strong> Selects appropriate View and passes data.</div>
+            <div class="step-box"><strong>View Displays Output to User:</strong> Presents final output (e.g., dashboard or error message).</div>
+
+            <h2 class="mt-5 mb-4">Application in Real Projects</h2>
+            <h5>Example: Login System Flow</h5>
+            <ol class="small">
+                <li>User enters username and password in the login page.</li>
+                <li>The request is sent to the Controller.</li>
+                <li>The Controller validates input format (basic validation).</li>
+                <li>The Controller calls the Model to verify credentials from the database.</li>
+                <li>The Model checks if the user exists and if the password matches.</li>
+                <li>The Model returns the result to the Controller.</li>
+                <li>The Controller decides: If valid → redirect to dashboard; If invalid → return error message.</li>
+                <li>The View displays the result (success or error).</li>
+            </ol>
+
+            <h5 class="mt-4">Backend and Frontend Frameworks in MVC</h5>
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <div class="p-3 bg-light rounded border h-100">
+                        <h6 class="fw-bold">Frontend (View Layer)</h6>
+                        <div class="d-flex gap-2 mb-2">
+                            <span class="tech-tag">React</span><span class="tech-tag">Angular</span><span class="tech-tag">Vue.js</span>
+                        </div>
+                        <p class="small"><strong>Role:</strong> Displays data to users, sends input to Controller, and handles UI/UX.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="p-3 bg-light rounded border h-100">
+                        <h6 class="fw-bold">Backend (Controller + Model Layer)</h6>
+                        <div class="d-flex gap-2 mb-2">
+                            <span class="tech-tag">Laravel</span><span class="tech-tag">Django</span><span class="tech-tag">Spring Boot</span><span class="tech-tag">Express.js</span>
+                        </div>
+                        <p class="small"><strong>Role:</strong> Controller handles requests and flow; Model manages database and logic.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MVC DIAGRAMS (DEMONSTRATION) -->
+    <div id="view-mvc-demo" class="view-content d-none">
+        <div class="report-section">
+            <div class="section-header">
+                <h2>Mini Demonstration</h2>
+            </div>
+            
+            <div class="diagram-container">
+                <span class="diagram-title">MVC Architecture & System Diagram</span>
+                <img src="image/MAS1.png" alt="MVC Architecture & System Diagram">
+            </div>
+
+            <div class="diagram-container">
+                <span class="diagram-title">MVC Architecture: Folder Structure</span>
+                <img src="image/MAS2.png" alt="MVC Architecture: Folder Structure">
+            </div>
+
+            <div class="diagram-container">
+                <span class="diagram-title">MVC Architecture: Request Response Flow</span>
+                <img src="image/MAS3.jpg" alt="MVC Architecture: Request Response Flow">
+            </div>
+        </div>
+    </div>
+
+    <!-- API INTRO & PLANNING -->
+    <div id="view-api-intro" class="view-content d-none">
+        <div class="report-section">
+            <div class="section-header">
+                <h2>Introduction to API</h2>
+            </div>
+            <p>API stands for <strong>Application Programming Interface</strong>. IAPI stands for Application Programming Interface. It is a set of rules that allows different software applications to communicate with each other. APIs act as a bridge between the frontend and backend, enabling systems to exchange data and functionality efficiently. In modern software development, APIs are essential for connecting mobile apps, websites, databases, and third-party services.</p>
+            <ul>
+                <li>Connects different software applications</li>
+                <li>Acts as a bridge between frontend and backend</li>
+                <li>Enables data sharing between systems</li>
+                <li>Used in web apps, mobile apps, and cloud services</li>
+                <li>Important for modern software development</li>
+            </ul>
+
+            <h2 class="mt-5 mb-4">Planning the API</h2>
+            <h5>Purpose of the API</h5>
+            <ul>
+                <li>Handle client requests and return appropriate responses</li>
+                <li>Manage data flow between the user interface and the database</li>
+                <li>Enforce business logic (via Controllers and Models in MVC)</li>
+                <li>Provide secure and structured access to system features</li>
+            </ul>
+            
+            <h5>Target Users</h5>
+            <p class="small">Web applications (admin dashboards, browser-based systems) and Mobile applications (Android/iOS apps).</p>
+
+            <h5 class="mt-4">Example Features</h5>
+            <div class="table-responsive">
+                <table class="table table-sm border small">
+                    <thead class="table-light"><tr><th>Feature</th><th>Function</th><th>MVC Role</th></tr></thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Login</strong></td>
+                            <td>Authenticates users using email/username and password. Returns a token.</td>
+                            <td>Controller validates request; Model checks credentials in database.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Fetch data</strong></td>
+                            <td>Retrieves data from the database. Supports filtering, sorting, and pagination.</td>
+                            <td>Controller handles parameters; Model fetches data.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Submit data</strong></td>
+                            <td>Accepts user input (forms, uploads, etc.) and stores in database.</td>
+                            <td>Controller validates input; Model saves data.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- API DESIGN -->
+    <div id="view-api-design" class="view-content d-none">
+        <div class="report-section">
+            <div class="section-header">
+                <h2>API Design</h2>
+            </div>
+            <p class="small text-primary mb-4">This section outlines how the frontend communicates with the backend using Endpoints and JSON.</p>
+            
+            <h5 class="mb-3">1. API Endpoints Table</h5>
+            <div class="table-responsive mb-5">
+                <table class="table table-hover border small">
+                    <thead class="table-dark">
+                        <tr><th>Method</th><th>Endpoint</th><th>Description</th><th>MVC Role</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><span class="badge bg-primary badge-method">POST</span></td><td><code>/api/login</code></td><td>Authenticates user credentials</td><td>Controller validates, Model verifies</td></tr>
+                        <tr><td><span class="badge bg-success badge-method">GET</span></td><td><code>/api/students</code></td><td>Fetches a list of all students</td><td>Model retrieves records from DB</td></tr>
+                        <tr><td><span class="badge bg-success badge-method">GET</span></td><td><code>/api/students/:id</code></td><td>Fetches details of a specific student</td><td>Controller passes ID to Model</td></tr>
+                        <tr><td><span class="badge bg-primary badge-method">POST</span></td><td><code>/api/students</code></td><td>Adds a new student record</td><td>Model saves data to DB</td></tr>
+                        <tr><td><span class="badge bg-warning badge-method">PUT</span></td><td><code>/api/students/:id</code></td><td>Updates an existing student</td><td>Model modifies specific record</td></tr>
+                        <tr><td><span class="badge bg-danger badge-method">DELETE</span></td><td><code>/api/students/:id</code></td><td>Removes a student record</td><td>Model deletes record from DB</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h5>2. Request & Response Structure</h5>
+            <p class="small text-primary">APIs use JSON (JavaScript Object Notation). It is lightweight and easy for both layers to read.</p>
+            <div class="row">
+                <div class="col-md-6">
+                    <h6 class="fw-bold">A. Request Example (The "Input")</h6>
+                    <div class="code-block">
+{
+  "username": "Cejay_Pantas",
+  "password": "securePassword123"
+}</div>
+                </div>
+                <div class="col-md-6">
+                    <h6 class="fw-bold">B. Response Example (The "Output")</h6>
+                    <div class="code-block">
+// Success Response (200 OK)
+{
+  "status": "success",
+  "message": "Login successful",
+  "data": {
+    "user_id": 101,
+    "role": "Student",
+    "token": "eyJhbGciOiJIUzI1..."
+  }
+}
+
+// Error Response (401 Unauthorized)
+{
+  "status": "error",
+  "message": "Invalid username or password"
+}</div>
+                </div>
+            </div>
+
+            <h5 class="mt-4">3. Design Principles</h5>
+            <ul class="small">
+                <li><strong>Statelessness:</strong> Every request contains all information needed (no stored session on server).</li>
+                <li><strong>Standard HTTP Methods:</strong> GET (Read), POST (Create), PUT (Update), DELETE (Delete).</li>
+                <li><strong>JSON Format:</strong> Ensuring high compatibility between Backend and apps.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- API DEVELOPMENT IDEA -->
+    <div id="view-api-dev" class="view-content d-none">
+        <div class="report-section">
+            <div class="section-header">
+                <h2>Development Idea & Demo</h2>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="p-3 border rounded h-100">
+                        <h6 class="fw-bold">Tech Stack Choice</h6>
+                        <ul class="small">
+                            <li><strong>Backend:</strong> Node.js, Python, or PHP</li>
+                            <li><strong>Database:</strong> MySQL, Firebase, or MongoDB</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="p-3 border rounded h-100">
+                        <h6 class="fw-bold">Basic Workflow</h6>
+                        <ol class="small">
+                            <li>Client sends request</li>
+                            <li>Server processes logic</li>
+                            <li>Server sends response</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-5 p-4 bg-light rounded border text-center">
+                <h5 class="mb-3">Simple Demo Plan</h5>
+                <p class="small mb-4">Show sample API response (JSON) using modern testing and display tools.</p>
+                <div class="d-flex justify-content-center gap-3">
+                    <div class="p-3 bg-white border rounded small fw-bold">Postman (Testing)</div>
+                    <div class="p-3 bg-white border rounded small fw-bold">Browser / Frontend</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- IDE & LIBRARIES -->
+    <div id="view-tools" class="view-content d-none">
+        <div class="report-section">
+            <div class="section-header">
+                <h2>IDE & Libraries</h2>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-12 mb-4">
+                    <div class="p-4 border rounded bg-light">
+                        <h5 class="mt-0">Primary IDE: VS Code</h5>
+                        <p class="small">Visual Studio Code was chosen for its platform-agnostic performance and superior plugin support for C# and Frontend development.</p>
+                        
+                        <div class="row mt-4 g-4">
+                            <div class="col-md-4">
+                                <div class="p-3 bg-white rounded border h-100">
+                                    <h6 class="fw-bold">Core Plugins</h6>
+                                    <ul class="small">
+                                        <li>C# Dev Kit (IntelliSense)</li>
+                                        <li>SQLite Viewer (DB Inspection)</li>
+                                        <li>Prettier (Code Formatting)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="p-3 bg-white rounded border h-100">
+                                    <h6 class="fw-bold">Essential Libraries</h6>
+                                    <ul class="small">
+                                        <li>Microsoft.EntityFrameworkCore.Sqlite</li>
+                                        <li>Swashbuckle.AspNetCore (Swagger)</li>
+                                        <li>Bootstrap 5 (Styling)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="p-3 bg-white rounded border h-100">
+                                    <h6 class="fw-bold">Workflow Impact</h6>
+                                    <p class="small text-primary">These tools ensure automation, consistency, and efficiency throughout the development lifecycle.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-5 pt-4 border-top">
+                <h2 class="h4">Integration</h2>
+                <p class="text-primary small">Final stage involves the integration of all core components and design patterns into a unified system.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- LIVE DEMO PLACEHOLDER -->
+    <div id="view-live-demo" class="view-content d-none">
+        <div class="report-section bg-dark text-white text-center py-5 mb-0 rounded-bottom-0">
+            <h1 class="display-4 fw-bold">Live System Demo</h1>
+            <p class="lead">Applying MVC &amp; API Principles in Real-Time</p>
+            <div class="mt-3">
+                <span class="badge bg-primary">Frontend: Bootstrap</span>
+                <span class="badge bg-info text-dark">Backend: .NET API</span>
+                <span class="badge bg-light text-dark">DB: SQLite</span>
+            </div>
+            <div class="mt-3 small">
+                <span id="apiStatusDot" class="api-status-dot bg-success"></span>
+                <span id="apiStatusText">API Online (Port 5264)</span>
+            </div>
+        </div>
+
+        <div class="report-section rounded-top-0 border-top-0 shadow-sm">
+            <!-- Authentication Container -->
+            <div id="authContainer" class="card card-auth p-4 border-0">
+                <h3 class="text-center mb-4" id="formTitle">Sign In</h3>
+                <div id="messageBox" class="alert d-none" role="alert"></div>
+
+                <form id="authForm">
+                    <div class="mb-3">
+                        <label class="form-label text-primary">Username</label>
+                        <input type="text" id="username" class="form-control" placeholder="Enter username" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label text-primary">Password</label>
+                        <input type="password" id="password" class="form-control" placeholder="Enter password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 mb-3" id="submitBtn">Login</button>
+                </form>
+                <div class="text-center mt-2">
+                    <a href="javascript:void(0)" id="toggleMode" class="text-decoration-none text-secondary small">Need an account? Register here</a>
+                </div>
+            </div>
+
+            <!-- Dashboard View (Initially Hidden) -->
+            <div id="dashboardView" class="card card-auth p-5 text-center d-none border-0">
+                <div class="mb-3"><h1 class="text-success">✔</h1></div>
+                <h2 class="mb-3">Dashboard Access</h2>
+                <div class="bg-light p-3 rounded mb-4 text-start">
+                    <h6 class="text-primary border-bottom pb-2">User Session Data</h6>
+                    <div class="small">
+                        <strong>Username:</strong> <span id="displayUsername"></span><br>
+                        <strong>API Base:</strong> <span id="displayApiUrl" class="text-primary"></span><br>
+                        <strong>Endpoint:</strong> <code class="text-danger">/api/auth/delete/{user}</code>
+                    </div>
+                </div>
+                <div class="d-grid gap-2">
+                    <button class="btn btn-outline-secondary" id="logoutBtn">Logout</button>
+                    <button class="btn btn-danger btn-sm mt-3" id="deleteAccountBtn">Delete My Account</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<script>
+    // Constants for API
+    const API_BASE_URL = "http://localhost:5264/api/auth";
+    let isLoginMode = true;
+    let currentUser = null;
+
+    function showView(viewId) {
+        document.querySelectorAll('.view-content').forEach(v => v.classList.add('d-none'));
+        document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
+        
+        const targetView = document.getElementById('view-' + viewId);
+        if(targetView) {
+            targetView.classList.remove('d-none');
+        }
+        
+        const links = document.querySelectorAll('.nav-link');
+        links.forEach(link => {
+            if (link.getAttribute('onclick') && link.getAttribute('onclick').includes("'" + viewId + "'")) {
+                link.classList.add('active');
+            }
+        });
+        
+        window.scrollTo(0, 0);
+    }
+
+    // Toggle between Login and Registration
+    const toggleMode = document.getElementById('toggleMode');
+    if (toggleMode) {
+        toggleMode.addEventListener('click', () => {
+            isLoginMode = !isLoginMode;
+            document.getElementById('formTitle').innerText = isLoginMode ? 'Sign In' : 'Create Account';
+            document.getElementById('submitBtn').innerText = isLoginMode ? 'Login' : 'Register';
+            toggleMode.innerText = isLoginMode ? 'Need an account? Register here' : 'Already have an account? Login';
+            document.getElementById('messageBox').classList.add('d-none');
+        });
+    }
+
+    // Handle Form Submission
+    const authForm = document.getElementById('authForm');
+    if (authForm) {
+        authForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const msgBox = document.getElementById('messageBox');
+            const submitBtn = document.getElementById('submitBtn');
+
+            msgBox.className = "alert alert-info";
+            msgBox.innerText = "Processing...";
+            msgBox.classList.remove('d-none');
+            submitBtn.disabled = true;
+
+            const endpoint = isLoginMode ? '/login' : '/register';
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    msgBox.className = "alert alert-success";
+                    msgBox.innerText = result.message;
+                    
+                    if (isLoginMode) {
+                        currentUser = result.username;
+                        setTimeout(enterDashboard, 1000);
+                    } else {
+                        // Switch to login mode after registration
+                        setTimeout(() => {
+                            isLoginMode = true;
+                            document.getElementById('toggleMode').click();
+                            msgBox.classList.add('d-none');
+                        }, 1500);
+                    }
+                } else {
+                    msgBox.className = "alert alert-danger";
+                    msgBox.innerText = result.message || "An error occurred.";
+                }
+            } catch (error) {
+                msgBox.className = "alert alert-warning";
+                msgBox.innerText = "API Connection Error. Is the backend running?";
+                console.error(error);
+            } finally {
+                submitBtn.disabled = false;
+            }
+        });
+    }
+
+    function enterDashboard() {
+        document.getElementById('authContainer').classList.add('d-none');
+        document.getElementById('dashboardView').classList.remove('d-none');
+        document.getElementById('displayUsername').innerText = currentUser;
+        document.getElementById('displayApiUrl').innerText = API_BASE_URL;
+    }
+
+    // Handle Logout
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+            currentUser = null;
+            document.getElementById('authContainer').classList.remove('d-none');
+            document.getElementById('dashboardView').classList.add('d-none');
+            document.getElementById('authForm').reset();
+            document.getElementById('messageBox').classList.add('d-none');
+        });
+    }
+
+    // Handle Account Deletion
+    const deleteBtn = document.getElementById('deleteAccountBtn');
+    if (deleteBtn) {
+        deleteBtn.addEventListener('click', async () => {
+            if (!confirm("Are you sure you want to delete your account? This cannot be undone.")) return;
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/delete/${currentUser}`, {
+                    method: 'DELETE'
+                });
+
+                if (response.ok) {
+                    alert("Account deleted successfully.");
+                    logoutBtn.click();
+                } else {
+                    alert("Failed to delete account.");
+                }
+            } catch (error) {
+                alert("Error connecting to server.");
+            }
+        });
+    }
+
+    // Ping API on load
+    async function checkApiStatus() {
+        const dot = document.getElementById('apiStatusDot');
+        const text = document.getElementById('apiStatusText');
+        try {
+            const res = await fetch(`${API_BASE_URL}/test`);
+            if (res.ok) {
+                dot.className = "api-status-dot bg-success";
+                text.innerText = "API Online (Port 5264)";
+            } else {
+                throw new Error();
+            }
+        } catch {
+            dot.className = "api-status-dot bg-danger";
+            text.innerText = "API Offline";
+        }
+    }
+
+    window.onload = function() {
+        showView('mvc-overview');
+        checkApiStatus();
+    };
+</script>
+
+</body>
+</html>
