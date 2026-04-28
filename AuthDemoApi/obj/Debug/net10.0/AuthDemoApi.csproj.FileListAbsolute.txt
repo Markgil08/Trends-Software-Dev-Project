@@ -146,3 +146,4 @@ C:\Users\Mark\Desktop\API\AuthDemoApi\obj\Debug\net10.0\refint\AuthDemoApi.dll
 C:\Users\Mark\Desktop\API\AuthDemoApi\obj\Debug\net10.0\AuthDemoApi.pdb
 C:\Users\Mark\Desktop\API\AuthDemoApi\obj\Debug\net10.0\AuthDemoApi.genruntimeconfig.cache
 C:\Users\Mark\Desktop\API\AuthDemoApi\obj\Debug\net10.0\ref\AuthDemoApi.dll
+C:\Users\Mark\Desktop\API\AuthDemoApi\obj\Debug\net10.0\AuthDemoApi.sourcelink.json
